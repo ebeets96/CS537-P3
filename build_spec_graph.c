@@ -1,9 +1,13 @@
 #include "build_spec_graph.h"
+#include <stdlib.h>
+#include <string.h>
 
-GraphNode* addTarget(Graph* graph, char*, target) {
+GraphNode* findTarget(GraphNode* root, char* target);
+
+GraphNode* addTarget(Graph* graph, char* target) {
 	GraphNode* root = graph -> root;
 	
-	if (root = NULL) {
+	if (root == NULL) {
 		// Graph is empty, set root as target
 		root = malloc(sizeof(GraphNode));
 		root -> target = target;
@@ -44,7 +48,7 @@ void addDepedency(GraphNode* target, char* dependency) {
 
 // Add a new command to target
 void addCommand(GraphNode* target, char** newCommand) {
-	Command* command = target -> commands;
+	Command* command = (target -> commands);
 	while (command != NULL) {
 		command = command -> next;
 	}

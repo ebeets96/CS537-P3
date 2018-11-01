@@ -3,22 +3,20 @@
 
 #include "build_spec_repr.h"
 
+typedef struct Node {
+        void* element;
+        struct Node* next;
+} Node;
+
 typedef struct GraphNode{
 	char* target;
-	struct Node* commands;
-	int numCommands;
-	struct Node* children;
-	int numChildren;
+	Command* commands;
+	Node* children;
 } GraphNode;
 
 typedef struct {
 	GraphNode* root;
 } Graph;
-
-struct Node {
-	void* element;
-	Node* next;
-};
 
 GraphNode* addTarget(Graph* graph, char* target);
 
