@@ -5,14 +5,20 @@
 
 typedef struct GraphNode{
 	char* target;
-	Command* cmd;
-	struct GraphNode* children;
+	struct Node* commands;
+	int numCommands;
+	struct Node* children;
 	int numChildren;
 } GraphNode;
 
 typedef struct {
 	GraphNode* root;
 } Graph;
+
+struct Node {
+	void* element;
+	Node* next;
+};
 
 GraphNode* addTarget(Graph* graph, char* target);
 
