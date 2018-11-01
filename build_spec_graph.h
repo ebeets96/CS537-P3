@@ -18,6 +18,6 @@ GraphNode* addTarget(Graph* graph, char* target);
 
 void addDepedency(GraphNode* target, char* dependency);
 
-void addCommand(GraphNode* target, char** command);
+void addCommandToNode(GraphNode* target, char** command);
 
 #endif

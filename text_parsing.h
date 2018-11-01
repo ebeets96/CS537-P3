@@ -3,6 +3,6 @@
 
 #include "build_spec_graph.h"
 
-void parseFile(char* filename, Graph g);
+void parseFile(char* filename, Graph* g);
 
-#endif 
+#endif
