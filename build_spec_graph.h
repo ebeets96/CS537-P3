@@ -7,14 +7,17 @@ typedef struct GraphNode{
 	char* target;
 	Command* cmd;
 	struct GraphNode* children;
+	int numChildren;
 } GraphNode;
 
 typedef struct {
 	GraphNode* root;
 } Graph;
 
-GraphNode* getTarget(char* target);
+GraphNode* addTarget(Graph* graph, char* target);
 
-void addDepedency(Graph* graph, char* target, char* dependency);
+void addDepedency(GraphNode* target, char* dependency);
+
+void addCommand(GraphNode* target, char** command);
 
 #endif
