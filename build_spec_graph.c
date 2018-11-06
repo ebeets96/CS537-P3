@@ -4,18 +4,37 @@
 
 GraphNode* findTarget(GraphNode* root, char* target);
 
-GraphNode* addTarget(Graph* graph, char* target) {
-	GraphNode* root = graph -> root;
-	
-	if (root == NULL) {
+GraphNode* addTarget(Node* graph, char* target) {
+	if (graph == NULL) {
 		// Graph is empty, set root as target
-		root = malloc(sizeof(GraphNode));
-		root -> target = target;
-		return root;
-	}
+		graph = malloc(sizeof(Node));
+		graph -> element = malloc(sizeof(GraphNode));
+		graph -> next = NULL;
+		GraphNode* new = graph -> element;
+		new -> target = target;
+		new -> children = NULL;
+		return new;
+	} 
 
-	// Else, find target
-	return findTarget(root, target);
+	GraphNode* root = graph -> element;
+
+	// Get target if it exists in this graph
+	GraphNode* ret = findTarget(root, target);
+	// If it does not,
+	if (ret == NULL) {
+		// If root points to another graph, check the next graph for the target
+		if (graph -> next != NULL) {
+			return addTarget(graph -> next, target);
+		}
+		// Else, create the target
+		graph -> next = malloc(sizeof(Node));
+		graph -> next -> element = malloc(sizeof(GraphNode));
+		ret = graph -> next -> element;
+		ret -> target = target;
+		ret -> children = NULL;
+	}
+	// Return the target
+	return ret;
 }
 
 // Search through the graph for a target GraphNode
@@ -44,6 +63,7 @@ void addDepedency(GraphNode* target, char* dependency) {
 	GraphNode* dependency_graphnode = child -> element;
 	dependency_graphnode = malloc(sizeof(GraphNode));
 	dependency_graphnode -> target = dependency;
+	dependency_graphnode -> children = NULL;
 }
 
 // Add a new command to target
@@ -54,4 +74,5 @@ void addCommand(GraphNode* target, char** newCommand) {
 	}
 	command = malloc(sizeof(Command));
 	command -> cmd = newCommand;
+	command -> next = NULL;
 }

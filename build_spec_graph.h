@@ -14,11 +14,7 @@ typedef struct GraphNode{
 	Node* children;
 } GraphNode;
 
-typedef struct {
-	GraphNode* root;
-} Graph;
-
-GraphNode* addTarget(Graph* graph, char* target);
+GraphNode* addTarget(Node* graph, char* target);
 
 void addDepedency(GraphNode* target, char* dependency);
 
