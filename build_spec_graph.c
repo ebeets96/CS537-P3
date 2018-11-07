@@ -2,82 +2,56 @@
 #include <stdlib.h>
 #include <string.h>
 
-GraphNode* findTarget(GraphNode* root, char* target);
+GraphNode* findTarget(Node* root, char* target);
 
 GraphNode* addTarget(Node* graph, char* target) {
-	if (graph == NULL) {
-		// Graph is empty, set root as target
-		graph = malloc(sizeof(Node));
-		graph -> element = malloc(sizeof(GraphNode));
-		graph -> next = NULL;
-		GraphNode* new = graph -> element;
-		new -> target = target;
-		new -> children = NULL;
-		return new;
-	}
-
-	GraphNode* root = graph -> element;
-
 	// Get target if it exists in this graph
-	GraphNode* ret = findTarget(root, target);
-	// If it does not,
+	GraphNode* ret = findTarget(graph, target);
+	// If it does not, create the target
 	if (ret == NULL) {
-		// If root points to another graph, check the next graph for the target
-		if (graph -> next != NULL) {
-			return addTarget(graph -> next, target);
-		}
-		// Else, create the target
-		graph -> next = malloc(sizeof(Node));
-		graph -> next -> element = malloc(sizeof(GraphNode));
-		ret = graph -> next -> element;
-		ret -> target = target;
-		ret -> children = NULL;
+		ret = malloc(sizeof(GraphNode));
+		ret  -> target = target;
+		ret  -> children = NULL;
+		ret  -> visited = 0;
 	}
 	// Return the target
 	return ret;
 }
 
 // Search through the graph for a target GraphNode
-GraphNode* findTarget(GraphNode* root, char* target) {
-	if (strcmp(root -> target, target) == 0) {
-		return root;
+GraphNode* findTarget(Node* root, char* target) {
+	if (root == NULL || strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
+		return root -> element;
 	}
-	Node* child = root -> children;
-	while (child != NULL) {
-		GraphNode* child_graphnode = findTarget(child -> element, target);
-		if (child_graphnode != NULL) {
-			return child_graphnode;
-		}
-		child = child -> next;
-	}
-	return NULL;
+	return findTarget(root -> next, target);
 }
 
 // Add a new GraphNode as a dependency of target
 void addDepedency(Node* graph, GraphNode* target, char* dependency) {
 	// Check if dependency already exists
-	GraphNode* target_graphNode = findTarget(graph, dependency);
-	if (target_graphNode != NULL) {
-		Node* child = target -> children;
+	GraphNode* dependency_graphnode = findTarget(graph, dependency);
+	Node* child;
+	if (dependency_graphnode != NULL) {
+		child = target -> children;
         	while (child != NULL) {
-                child = child -> next;
+                	child = child -> next;
         	}
 		child = malloc(sizeof(Node));
-		child -> element = target;
+		child -> element = dependency_graphnode;
 		child -> next = NULL;
 		return;
 	}
 
 	// If it does not, create it
-	Node* child = target -> children;
+	dependency_graphnode = addTarget(graph, dependency);
+	child = target -> children;
 	while (child != NULL) {
 		child = child -> next;
 	}
 	child = malloc(sizeof(Node));
-	GraphNode* dependency_graphnode = child -> element;
-	dependency_graphnode = malloc(sizeof(GraphNode));
-	dependency_graphnode -> target = dependency;
-	dependency_graphnode -> children = NULL;
+	child -> element = dependency_graphnode;
+	child -> next = NULL;
+	return;
 }
 
 // Add a new command to target
@@ -89,4 +63,42 @@ void addCommandToNode(GraphNode* target, char** newCommand) {
 	command = malloc(sizeof(Command));
 	command -> cmd = newCommand;
 	command -> next = NULL;
+}
+
+// Set visited to 0 for all GraphNodes
+void clear(Node* root) {
+	if (root == NULL) {
+		return;
+	}
+	((GraphNode*) (root -> element)) -> visited = 0;
+	clear(root -> next);
+	return;
+}
+
+int internalCheckForCycles(Node* root) {
+        ((GraphNode*) (root -> element)) -> visited++;
+        if (((GraphNode*) (root -> element)) -> visited > 1) {
+                return 1;
+        }
+        Node* child = ((GraphNode*) (root -> element)) -> children;
+        while (child != NULL) {
+                if (internalCheckForCycles(child) == 1) {
+                        return 1;
+                }
+                child = child -> next;
+        }
+        return 0;
+}
+
+int checkForCycles(Node* root) {
+	Node* curr = root;
+	while (curr != NULL) {
+		clear(root);
+		Node* child = ((GraphNode*) (curr -> element)) -> children;
+		if (internalCheckForCycles(child) == 1) {
+			return 1;
+		}
+		curr = curr -> next;
+	}
+	return 0;
 }
