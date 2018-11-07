@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* parseFile(FILE* fp, Graph* g) {
+char* parseFile(FILE* fp, Node* g) {
 	// Allocate string buffer for each line
 	char* line = malloc(sizeof(char) * string_buffer);
 	if(line == NULL) {
@@ -64,13 +64,13 @@ char* parseFile(FILE* fp, Graph* g) {
 			}
 
 			// Add Target to the Graph
-			gn = getTarget(g, target);
+			gn = addTarget(g, target);
 
 			//convert dependencies to an array of strings
 			char* dependency = strtok(dependencies, " ");
 
 			while(dependency != NULL) {
-				addDepedency(gn, dependency);
+				addDepedency(g, gn, dependency);
 				dependency = strtok(NULL, " ");
 			}
 		}

@@ -4,6 +4,6 @@
 #include "build_spec_graph.h"
 #include <stdio.h>
 
-char* parseFile(FILE* fp, Graph* g);
+char* parseFile(FILE* filename, Node* g);
 
 #endif
