@@ -6,4 +6,4 @@
 
 char* parseFile(FILE* filename, Node* g);
 
-#endif 
+#endif

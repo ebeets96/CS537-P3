@@ -20,17 +20,17 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "No file named 'makefile' or 'Makefile' found.\n");
 		return -1;
 	}
-	
+
 	// Parse the file
 	Node* graph = NULL;
 	char* firstTarget =  parseFile(file, graph);
 
 	// If a target was specified, make that target, else make the first target in the makefile
 	if (argc == 1) {
-		makeTarget(argv[0]);
+		makeTarget(argv[0], graph);
 	} else {
-		makeTarget(firstTarget);
+		makeTarget(firstTarget, graph);
 	}
-	
+
 	return 0;
 }

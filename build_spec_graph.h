@@ -16,8 +16,8 @@ typedef struct GraphNode{
 
 GraphNode* addTarget(Node* graph, char* target);
 
-void addDepedency(GraphNode* target, char* dependency);
+void addDepedency(Node* graph, GraphNode* target, char* dependency);
 
-void addCommand(GraphNode* target, char** command);
+void addCommandToNode(GraphNode* target, char** command);
 
 #endif

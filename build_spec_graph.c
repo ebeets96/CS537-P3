@@ -14,7 +14,7 @@ GraphNode* addTarget(Node* graph, char* target) {
 		new -> target = target;
 		new -> children = NULL;
 		return new;
-	} 
+	}
 
 	GraphNode* root = graph -> element;
 
@@ -53,7 +53,7 @@ GraphNode* findTarget(GraphNode* root, char* target) {
 	return NULL;
 }
 
-// Add a new GraphNode as a dependency of target 
+// Add a new GraphNode as a dependency of target
 void addDepedency(Node* graph, GraphNode* target, char* dependency) {
 	// Check if dependency already exists
 	GraphNode* target_graphNode = findTarget(graph, dependency);
@@ -81,7 +81,7 @@ void addDepedency(Node* graph, GraphNode* target, char* dependency) {
 }
 
 // Add a new command to target
-void addCommand(GraphNode* target, char** newCommand) {
+void addCommandToNode(GraphNode* target, char** newCommand) {
 	Command* command = (target -> commands);
 	while (command != NULL) {
 		command = command -> next;
