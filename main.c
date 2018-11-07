@@ -23,7 +23,13 @@ int main(int argc, char **argv) {
 
 	// Parse the file
 	Node* graph = NULL;
-	char* firstTarget =  parseFile(file, graph);
+	char* firstTarget = parseFile(file, graph);
+
+	// Check the dependency graph for cycles
+	if (checkForCycles(graph) == 1) {
+		fprintf(stderr, "Cycle in dependency graph\n");
+		return -1;
+	}
 
 	// If a target was specified, make that target, else make the first target in the makefile
 	if (argc == 1) {

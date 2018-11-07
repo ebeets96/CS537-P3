@@ -12,6 +12,7 @@ typedef struct GraphNode{
 	char* target;
 	Command* commands;
 	Node* children;
+	int visited;
 } GraphNode;
 
 GraphNode* addTarget(Node* graph, char* target);
@@ -19,5 +20,7 @@ GraphNode* addTarget(Node* graph, char* target);
 void addDepedency(Node* graph, GraphNode* target, char* dependency);
 
 void addCommandToNode(GraphNode* target, char** command);
+
+int checkForCycles(Node* n);
 
 #endif
