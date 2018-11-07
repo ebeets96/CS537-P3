@@ -4,8 +4,8 @@
 #include "proc_creation_prog_exe.h"
 
 int main(int argc, char **argv) {
-	// Check that there are 0 or 1 arguments
-	if (argc > 1) {
+	// Check that there are 1 or 2 arguments
+	if (argc > 2) {
 		fprintf(stderr, "Too many arguments\n");
 		return -1;
 	}
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 	}
 
 	// If a target was specified, make that target, else make the first target in the makefile
-	if (argc == 1) {
-		makeTarget(argv[0], graph);
+	if (argc == 2) {
+		makeTarget(argv[1], graph);
 	} else {
 		makeTarget(firstTarget, graph);
 	}
