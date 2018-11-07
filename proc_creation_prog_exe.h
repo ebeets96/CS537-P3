@@ -1,6 +1,6 @@
 #ifndef PROC_CREATE_H
 #define PROC_CREATE_H
-
-void makeTarget(char* target);
+#include "build_spec_graph.h"
+void makeTarget(char* target, Graph* graph);
 
 #endif

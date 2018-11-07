@@ -2,7 +2,8 @@
 #define TEXT_PARSING_H
 
 #include "build_spec_graph.h"
+#include <stdio.h>
 
-void parseFile(char* filename, Graph g);
+char* parseFile(FILE* fp, Graph* g);
 
-#endif 
+#endif
