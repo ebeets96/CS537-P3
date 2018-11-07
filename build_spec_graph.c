@@ -54,7 +54,21 @@ GraphNode* findTarget(GraphNode* root, char* target) {
 }
 
 // Add a new GraphNode as a dependency of target 
-void addDepedency(GraphNode* target, char* dependency) {
+void addDepedency(Node* graph, GraphNode* target, char* dependency) {
+	// Check if dependency already exists
+	GraphNode* target_graphNode = findTarget(graph, dependency);
+	if (target_graphNode != NULL) {
+		Node* child = target -> children;
+        	while (child != NULL) {
+                child = child -> next;
+        	}
+		child = malloc(sizeof(Node));
+		child -> element = target;
+		child -> next = NULL;
+		return;
+	}
+
+	// If it does not, create it
 	Node* child = target -> children;
 	while (child != NULL) {
 		child = child -> next;
