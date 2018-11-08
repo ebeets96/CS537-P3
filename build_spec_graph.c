@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-Node* findTarget(Node* root, char* target);
-
 GraphNode* addTarget(Node* graph, char* target) {
 	// Get target if it exists in this graph
 	Node* node = findTarget(graph, target);
@@ -13,7 +10,7 @@ GraphNode* addTarget(Node* graph, char* target) {
 	if (node == NULL) {
 		node = malloc(sizeof(Node));
 		node -> next = NULL;
-		ret = node -> element;	
+		ret = node -> element;
 		ret = malloc(sizeof(GraphNode));
 		ret  -> target = target;
 		ret  -> children = NULL;
