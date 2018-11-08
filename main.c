@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "build_spec_graph.h"
 #include "text_parsing.h"
 #include "proc_creation_prog_exe.h"
@@ -24,8 +25,6 @@ int main(int argc, char **argv) {
 
 	// Parse the file
 	Node* graph = malloc(sizeof(Node*));
-
-	//TODO The graph needs to be initialized
 
 	char* firstTarget = parseFile(file, graph);
 
