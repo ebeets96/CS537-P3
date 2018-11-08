@@ -4,75 +4,91 @@
 
 GraphNode* addTarget(Node* graph, char* target) {
 	// Get target if it exists in this graph
-	Node* node = findTarget(graph, target);
-	GraphNode* ret;
+	GraphNode* graphnode = findTarget(graph, target);
 	// If it does not, create the target
-	if (node == NULL) {
-		node = malloc(sizeof(Node));
-		node -> next = NULL;
-		ret = node -> element;
-		ret = malloc(sizeof(GraphNode));
-		ret  -> target = target;
-		ret  -> children = NULL;
-		ret  -> visited = 0;
-	} else {
-		ret = node -> element;
+
+	if (graphnode == NULL) {
+		graphnode = malloc(sizeof(GraphNode));
+		createNewLastNode(graph) -> element = graphnode;
+		graphnode -> target = target;
+		graphnode -> children = NULL;
+		graphnode -> visited = 0;
 	}
+
 	// Return the target
-	return ret;
+	return graphnode;
+}
+
+Node* createNewLastNode(Node* root) {
+	while (root -> next != NULL) {
+		root = root -> next;
+	}
+	root -> next = malloc(sizeof(Node));
+	root -> next -> next = NULL;
+	return root -> next;
 }
 
 // Search through the graph for a target GraphNode
-Node* findTarget(Node* root, char* target) {
-	if (root == NULL || root -> element == NULL) {
-		// We are at the end of the graph, return the last node
-		return root;
+// If found, return the GraphNode, else return NULL
+GraphNode* findTarget(Node* root, char* target) {
+	GraphNode* graphnode = root -> element;
+	if (graphnode == NULL) {
+		// We have reached the end of the graph
+		return NULL;
 	}
 
-	if (strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
-		return root;
+	if (strcmp(graphnode -> target, target) == 0) {
+		// We have found the target
+		return graphnode;
 	}
+
+	if (root -> next == NULL) {
+                // We have reached the end of the graph
+                return NULL;
+        }
 
 	return findTarget(root -> next, target);
 }
 
 // Add a new GraphNode as a dependency of target
 void addDepedency(Node* graph, GraphNode* target, char* dependency) {
-	// Check if dependency already exists
-	Node* dependency_node = findTarget(graph, dependency);
+	GraphNode* dependency_graphnode = findTarget(graph, dependency);
 	Node* child;
-	GraphNode* dependency_graphnode;
-	if (dependency_node != NULL) {
-		dependency_graphnode = dependency_node -> element;
+
+	// If dependency already exists, add it as a child of target
+	if (dependency_graphnode != NULL) {
 		child = target -> children;
-        	while (child != NULL) {
+                while (child -> next != NULL) {
                 	child = child -> next;
-        	}
-		child = malloc(sizeof(Node));
-		child -> element = dependency_graphnode;
-		child -> next = NULL;
-		return;
+                }
+                child -> next = malloc(sizeof(Node));
+		child = child -> next;
+                child -> element = dependency_graphnode;
+                child -> next = NULL;
+                return;
 	}
 
-	// If it does not, create it
+	// If dependency does not exist, create it and then add it as a child of target
 	dependency_graphnode = addTarget(graph, dependency);
 	child = target -> children;
-	while (child != NULL) {
-		child = child -> next;
-	}
-	child = malloc(sizeof(Node));
-	child -> element = dependency_graphnode;
-	child -> next = NULL;
-	return;
+        while (child -> next != NULL) {
+        	child = child -> next;
+        }
+        child -> next = malloc(sizeof(Node));
+        child = child -> next;
+        child -> element = dependency_graphnode;
+        child -> next = NULL;
+        return;
 }
 
 // Add a new command to target
 void addCommandToNode(GraphNode* target, char** newCommand) {
 	Command* command = (target -> commands);
-	while (command != NULL) {
+	while (command -> next != NULL) {
 		command = command -> next;
 	}
-	command = malloc(sizeof(Command));
+	command -> next = malloc(sizeof(Command));
+	command = command -> next;
 	command -> cmd = newCommand;
 	command -> next = NULL;
 }

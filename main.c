@@ -32,8 +32,6 @@ int main(int argc, char **argv) {
 	graph->element = NULL;
 	graph->next = NULL;
 
-	//TODO The graph needs to be initialized
-
 	char* firstTarget = parseFile(file, graph);
 
 	// Check the dependency graph for cycles

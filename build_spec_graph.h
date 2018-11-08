@@ -15,7 +15,7 @@ typedef struct GraphNode{
 	int visited;
 } GraphNode;
 
-Node* findTarget(Node* root, char* target);
+GraphNode* findTarget(Node* root, char* target);
 
 GraphNode* addTarget(Node* graph, char* target);
 
@@ -24,5 +24,7 @@ void addDepedency(Node* graph, GraphNode* target, char* dependency);
 void addCommandToNode(GraphNode* target, char** command);
 
 int checkForCycles(Node* n);
+
+Node* createNewLastNode(Node* root);
 
 #endif
