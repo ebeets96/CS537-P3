@@ -25,4 +25,6 @@ void addCommandToNode(GraphNode* target, char** command);
 
 int checkForCycles(Node* n);
 
+Node* createNewLastNode(Node* root);
+
 #endif
