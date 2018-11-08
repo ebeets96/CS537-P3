@@ -5,6 +5,10 @@
 #include "proc_creation_prog_exe.h"
 #include "consts.h"
 
+const int string_buffer = 1024;
+const char* makefile1 = "makefile";
+const char* makefile2 = "Makefile";
+
 int main(int argc, char **argv) {
 	// Check that there are 1 or 2 arguments
 	if (argc > 2) {
@@ -24,7 +28,9 @@ int main(int argc, char **argv) {
 	}
 
 	// Parse the file
-	Node* graph = malloc(sizeof(Node*));
+	Node* graph = malloc(sizeof(Node));
+	graph->element = NULL;
+	graph->next = NULL;
 
 	char* firstTarget = parseFile(file, graph);
 

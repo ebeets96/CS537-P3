@@ -3,7 +3,7 @@
 #include "proc_creation_prog_exe.h"
 
 void makeTarget(char* target, Node* graph) {
-	GraphNode* tNode = findTarget(graph, target);
+	GraphNode* tNode = (GraphNode*) findTarget(graph, target) -> element;
 
 	if(tNode == NULL) {
 		fprintf(stderr, "The specified target (%s) could not be found", target);

@@ -2,20 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-GraphNode* findTarget(Node* root, char* target);
-Node* createNewLastNode(Node* root);
-
 GraphNode* addTarget(Node* graph, char* target) {
 	// Get target if it exists in this graph
 	GraphNode* graphnode = findTarget(graph, target);
 	// If it does not, create the target
-	if (graphnode == NULL) {	
+
+	if (graphnode == NULL) {
 		graphnode = malloc(sizeof(GraphNode));
 		createNewLastNode(graph) -> element = graphnode;
 		graphnode -> target = target;
 		graphnode -> children = NULL;
 		graphnode -> visited = 0;
-	} 
+	}
+
 	// Return the target
 	return graphnode;
 }
