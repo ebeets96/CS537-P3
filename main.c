@@ -2,6 +2,7 @@
 #include "build_spec_graph.h"
 #include "text_parsing.h"
 #include "proc_creation_prog_exe.h"
+#include "consts.h"
 
 int main(int argc, char **argv) {
 	// Check that there are 1 or 2 arguments
@@ -12,9 +13,9 @@ int main(int argc, char **argv) {
 
 	// Get makefile
 	FILE* file;
-	file = fopen("makefile", "r");
+	file = fopen(makefile1, "r");
 	if (file == NULL) {
-		file = fopen("Makefile", "r");
+		file = fopen(makefile2, "r");
 	}
 	if (file == NULL) {
 		fprintf(stderr, "No file named 'makefile' or 'Makefile' found.\n");

@@ -2,37 +2,51 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+Node* findTarget(Node* root, char* target);
+
 GraphNode* addTarget(Node* graph, char* target) {
 	// Get target if it exists in this graph
-	GraphNode* ret = findTarget(graph, target);
+	Node* node = findTarget(graph, target);
+	GraphNode* ret;
 	// If it does not, create the target
-	if (ret == NULL) {
+	if (node == NULL) {
+		node = malloc(sizeof(Node));
+		node -> next = NULL;
+		ret = node -> element;	
 		ret = malloc(sizeof(GraphNode));
 		ret  -> target = target;
 		ret  -> children = NULL;
 		ret  -> visited = 0;
+	} else {
+		ret = node -> element;
 	}
 	// Return the target
 	return ret;
 }
 
 // Search through the graph for a target GraphNode
-GraphNode* findTarget(Node* root, char* target) {
-	if( root == NULL ) {
-		return NULL;
+Node* findTarget(Node* root, char* target) {
+	if (root == NULL) {
+		// We are at the end of the graph, return the last node
+		return root;
 	}
-	if ( strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
-		return root -> element;
+
+	if (strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
+		return root;
 	}
+
 	return findTarget(root -> next, target);
 }
 
 // Add a new GraphNode as a dependency of target
 void addDepedency(Node* graph, GraphNode* target, char* dependency) {
 	// Check if dependency already exists
-	GraphNode* dependency_graphnode = findTarget(graph, dependency);
+	Node* dependency_node = findTarget(graph, dependency);
 	Node* child;
-	if (dependency_graphnode != NULL) {
+	GraphNode* dependency_graphnode;
+	if (dependency_node != NULL) {
+		dependency_graphnode = dependency_node -> element;
 		child = target -> children;
         	while (child != NULL) {
                 	child = child -> next;
