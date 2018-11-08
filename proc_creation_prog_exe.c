@@ -6,7 +6,7 @@
 #include "proc_creation_prog_exe.h"
 
 void makeTarget(char* target, Node* graph) {
-	GraphNode* tNode = (GraphNode*) findTarget(graph, target) -> element;
+	GraphNode* tNode = findTarget(graph, target);
 
 	if(tNode == NULL) {
 		fprintf(stderr, "The specified target (%s) could not be found", target);
@@ -20,7 +20,7 @@ void makeTarget(char* target, Node* graph) {
 // 0 if it did not
 int makeNode(GraphNode* node) {
 	Node* child = node->children;
-	dependenciesUpdate = 0;
+	int dependenciesUpdate = 0;
 	while(child != NULL) {
 			GraphNode* childNode = (GraphNode*) child->element;
 			dependenciesUpdate += makeNode(childNode);
@@ -31,7 +31,7 @@ int makeNode(GraphNode* node) {
 	// This is a leaf node
 
 	struct stat *statbuf = malloc(sizeof(stat));
-	int statSuccess = stat(child->target, statbuf);
+	int statSuccess = stat(node->target, statbuf);
 
 	if(statSuccess) {
 		//Target is a file
@@ -39,4 +39,6 @@ int makeNode(GraphNode* node) {
 		//Target is not a file
 		runCommands(node->commands);
 	}
+
+	return 1;
 }
