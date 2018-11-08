@@ -26,7 +26,7 @@ Node* createNewLastNode(Node* root) {
 	}
 	root -> next = malloc(sizeof(Node));
 	root -> next -> next = NULL;
-	return root -> next;
+	return root;
 }
 
 // Search through the graph for a target GraphNode
@@ -44,9 +44,10 @@ GraphNode* findTarget(Node* root, char* target) {
 	}
 
 	if (root -> next == NULL) {
-                // We have reached the end of the graph
-                return NULL;
-        }
+        	// We have reached the end of the graph
+		// This is just an extra safety check
+		return NULL;
+	}
 
 	return findTarget(root -> next, target);
 }
@@ -56,29 +57,25 @@ void addDepedency(Node* graph, GraphNode* target, char* dependency) {
 	GraphNode* dependency_graphnode = findTarget(graph, dependency);
 	Node* child;
 
-	// If dependency already exists, add it as a child of target
-	if (dependency_graphnode != NULL) {
-		child = target -> children;
-                while (child -> next != NULL) {
+	// If dependency does not exist, add it
+	if (dependency_graphnode == NULL) {
+		dependency_graphnode = addTarget(graph, dependency);
+	}
+
+	// Add the dependency as a child of the target
+	child = target -> children;
+        if (child == NULL) {
+        	child = malloc(sizeof(Node));
+        } else {
+		// If the target already has children, get to the end of the list
+        	while (child -> next != NULL) {
                 	child = child -> next;
                 }
                 child -> next = malloc(sizeof(Node));
-		child = child -> next;
-                child -> element = dependency_graphnode;
-                child -> next = NULL;
-                return;
-	}
-
-	// If dependency does not exist, create it and then add it as a child of target
-	dependency_graphnode = addTarget(graph, dependency);
-	child = target -> children;
-        while (child -> next != NULL) {
-        	child = child -> next;
+                child = child -> next;
         }
-        child -> next = malloc(sizeof(Node));
-        child = child -> next;
         child -> element = dependency_graphnode;
-        child -> next = NULL;
+       	child -> next = NULL;
         return;
 }
 
