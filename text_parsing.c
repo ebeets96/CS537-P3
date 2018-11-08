@@ -10,13 +10,12 @@ char* parseFile(FILE* fp, Node* g) {
 	char* line = malloc(sizeof(char) * string_buffer);
 	if(line == NULL) {
 		printf("Could not allocate space for string buffer.\n");
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	// Read file until the end
-	char* firstTarget;
-	char* currentTarget;
-	GraphNode* gn;
+	char* firstTarget = NULL;
+	GraphNode* gn = NULL;
 	while(fgets(line, string_buffer, fp) != NULL) {
 		if(line[0] == '\n'){
 			continue; //Ignore blank lines
@@ -27,7 +26,11 @@ char* parseFile(FILE* fp, Node* g) {
 			}
 
 			char* curr = strtok(line, " ");
-			char** command;
+			char** command = malloc(sizeof (char*));
+			if(command == NULL) {
+				printf("Space could not be reallocated for commands.\n");
+				exit(EXIT_FAILURE);
+			}
 
 			// Create an array of the command
 			int size = 0;
@@ -65,6 +68,7 @@ char* parseFile(FILE* fp, Node* g) {
 
 			// Add Target to the Graph
 			gn = addTarget(g, target);
+			fprintf(stderr, "Added target of %s at a GraphNode of %p in Graph of %p\n", target, gn, g);
 
 			//convert dependencies to an array of strings
 			char* dependency = strtok(dependencies, " ");
@@ -74,8 +78,14 @@ char* parseFile(FILE* fp, Node* g) {
 				dependency = strtok(NULL, " ");
 			}
 		}
-	}
 
+		// Allocate string buffer for each line
+		line = malloc(sizeof(char) * string_buffer);
+		if(line == NULL) {
+			printf("Could not allocate space for string buffer.\n");
+			exit(EXIT_FAILURE);
+		}
+	}
 	free(line);
 	return firstTarget;
 }

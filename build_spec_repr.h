@@ -6,5 +6,6 @@ typedef struct Command {
 	struct Command* next;
 } Command;
 
-#endif
+void runCommands(Command* c);
 
+#endif

@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-GraphNode* findTarget(Node* root, char* target);
-
 GraphNode* addTarget(Node* graph, char* target) {
 	// Get target if it exists in this graph
 	GraphNode* ret = findTarget(graph, target);
@@ -20,7 +18,10 @@ GraphNode* addTarget(Node* graph, char* target) {
 
 // Search through the graph for a target GraphNode
 GraphNode* findTarget(Node* root, char* target) {
-	if (root == NULL || strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
+	if( root == NULL ) {
+		return NULL;
+	}
+	if ( strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
 		return root -> element;
 	}
 	return findTarget(root -> next, target);
