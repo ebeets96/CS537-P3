@@ -20,6 +20,11 @@ GraphNode* addTarget(Node* graph, char* target) {
 		ret  -> visited = 0;
 	} else {
 		ret = node -> element;
+		if (ret == NULL) {
+			ret = malloc(sizeof(GraphNode));
+			ret -> target = target;
+			ret -> children = NULL;
+		}
 	}
 	// Return the target
 	return ret;
