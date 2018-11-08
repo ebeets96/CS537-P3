@@ -27,7 +27,7 @@ GraphNode* addTarget(Node* graph, char* target) {
 
 // Search through the graph for a target GraphNode
 Node* findTarget(Node* root, char* target) {
-	if (root == NULL) {
+	if (root == NULL || root -> element == NULL) {
 		// We are at the end of the graph, return the last node
 		return root;
 	}
