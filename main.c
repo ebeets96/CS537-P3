@@ -23,7 +23,10 @@ int main(int argc, char **argv) {
 	}
 
 	// Parse the file
-	Node* graph = NULL;
+	Node* graph = malloc(sizeof(Node*));
+
+	//TODO The graph needs to be initialized
+
 	char* firstTarget = parseFile(file, graph);
 
 	// Check the dependency graph for cycles

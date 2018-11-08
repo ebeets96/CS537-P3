@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 Node* findTarget(Node* root, char* target);
 
 GraphNode* addTarget(Node* graph, char* target) {
@@ -34,6 +35,7 @@ Node* findTarget(Node* root, char* target) {
 	if (strcmp(((GraphNode*) (root -> element)) -> target, target) == 0) {
 		return root;
 	}
+
 	return findTarget(root -> next, target);
 }
 
