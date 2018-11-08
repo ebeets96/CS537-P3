@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Parse the file
-	Node* graph = malloc(sizeof(Node*));
+	Node* graph = malloc(sizeof(Node));
 	graph->element = NULL;
 	graph->next = NULL;
 
