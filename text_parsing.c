@@ -15,9 +15,9 @@ char* parseFile(FILE* fp, Node* g) {
 
 	// Read file until the end
 	char* firstTarget;
-	char* currentTarget;
 	GraphNode* gn;
 	while(fgets(line, string_buffer, fp) != NULL) {
+		printf("%s\n", line);
 		if(line[0] == '\n'){
 			continue; //Ignore blank lines
 		} else if(line[0] == '\t') {

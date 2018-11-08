@@ -15,6 +15,8 @@ typedef struct GraphNode{
 	int visited;
 } GraphNode;
 
+GraphNode* findTarget(Node* root, char* target);
+
 GraphNode* addTarget(Node* graph, char* target);
 
 void addDepedency(Node* graph, GraphNode* target, char* dependency);

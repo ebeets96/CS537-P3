@@ -30,3 +30,6 @@ clean:
 # recompile runs clean and then makes everything again to generate executable
 # this is equivalent to running "make clean" followed by "make"
 recompile: clean $(EXE)
+
+testing: recompile
+	cp 537make testing/

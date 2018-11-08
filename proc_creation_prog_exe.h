@@ -3,5 +3,6 @@
 #include "build_spec_graph.h"
 
 void makeTarget(char* target, Node* graph);
+void makeNode(GraphNode* node);
 
 #endif
