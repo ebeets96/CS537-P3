@@ -17,13 +17,14 @@ void runCommands(Command* c) {
 			// Child
 			// Print commands
 			char** args = currCmd->cmd;
-			int exec = execvp(*args, args);
+
+			execvp(*args, args);
 			//return if the execvp failed
 			exit(EXIT_FAILURE);
 		} else {
 			//Parent
 			int child_status;
-			int waitResult = waitpid(childPID, &child_status, 0);
+			waitpid(childPID, &child_status, 0);
 			if ( WIFEXITED(child_status) ) {
 				int exit_status = WEXITSTATUS(child_status);
 				if(exit_status == EXIT_FAILURE) {
