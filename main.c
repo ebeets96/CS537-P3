@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 	// Check the dependency graph for cycles
 	if (checkForCycles(graph) == 1) {
 		fprintf(stderr, "Cycle in dependency graph\n");
-		return -1;
+		exit(EXIT_FAILURE);
 	}
 
 	// If a target was specified, make that target, else make the first target in the makefile

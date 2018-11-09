@@ -15,16 +15,18 @@ typedef struct GraphNode{
 	int visited;
 } GraphNode;
 
-GraphNode* findTarget(Node* root, char* target);
+Node* findTarget(Node* root, char* target);
 
-GraphNode* addTarget(Node* graph, char* target);
+Node* addTarget(Node* graph, char* target);
 
-void addDepedency(Node* graph, GraphNode* target, char* dependency);
+void addDepedency(Node* graph, Node* target, char* dependency);
 
 void addCommandToNode(GraphNode* target, char** command);
 
 int checkForCycles(Node* n);
 
 Node* createNewLastNode(Node* root);
+
+void printNodes(Node* root);
 
 #endif

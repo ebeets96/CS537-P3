@@ -8,34 +8,30 @@
 void runCommands(Command* c) {
 	Command* currCmd = c;
 	while(currCmd != NULL) {
+		printf("run %s\n", *(currCmd->cmd));
 		pid_t childPID = fork();
 		if(childPID < 0) {
 			fprintf(stderr, "Could not fork to run commands.\n");
 			exit(EXIT_FAILURE);
 		} else if (childPID == 0) {
-			//Child
-			//Print commands
-			char** printPointer = currCmd->cmd;
-			while(*printPointer != NULL) {
-				printf("%s\n", *printPointer);
-				printPointer++;
-			}
-			char* filename = currCmd->cmd[0];
-			char** args = &currCmd->cmd[1];
-			int exec = execvp(filename, args);
-
-			if(exec == -1) {
-				exit(EXIT_FAILURE);
-			} else {
-				exit(EXIT_SUCCESS);
-			}
+			// Child
+			// Print commands
+			char** args = currCmd->cmd;
+			int exec = execvp(*args, args);
+			//return if the execvp failed
+			exit(EXIT_FAILURE);
 		} else {
 			//Parent
-			int status;
-			waitpid(childPID, &status, 0);
-
+			int child_status;
+			int waitResult = waitpid(childPID, &child_status, 0);
+			if ( WIFEXITED(child_status) ) {
+				int exit_status = WEXITSTATUS(child_status);
+				if(exit_status == EXIT_FAILURE) {
+					fprintf(stderr, "The command was unable to run\n");
+					exit(EXIT_FAILURE);
+				}
+			}
+			currCmd = currCmd->next;
 		}
-
-		currCmd = c->next;
 	}
 }

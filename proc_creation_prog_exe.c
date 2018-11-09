@@ -6,7 +6,7 @@
 #include "proc_creation_prog_exe.h"
 
 void makeTarget(char* target, Node* graph) {
-	GraphNode* tNode = findTarget(graph, target);
+	GraphNode* tNode = findTarget(graph, target)->element;
 
 	if(tNode == NULL) {
 		fprintf(stderr, "The specified target (%s) could not be found", target);
@@ -33,10 +33,12 @@ int makeNode(GraphNode* node) {
 	struct stat *statbuf = malloc(sizeof(stat));
 	int statSuccess = stat(node->target, statbuf);
 
-	if(statSuccess) {
+	if(statSuccess == 0) {
 		//Target is a file
+		printf("It's a file\n");
 	} else {
 		//Target is not a file
+		printf("It's not a file\n");
 		runCommands(node->commands);
 	}
 
