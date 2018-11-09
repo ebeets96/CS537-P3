@@ -27,8 +27,7 @@ Node* addTarget(Node* graph, char* target) {
 	}
 
 	graphnode->element = newNode;
-
-	printf("\t addTarget:%s, %p, %p\n", target, graphnode, newNode);
+	
 	// Return the target
 	return graphnode;
 }
@@ -69,33 +68,29 @@ Node* findTarget(Node* root, char* target) {
 // Add a new GraphNode as a dependency of target
 void addDepedency(Node* graph, Node* target, char* dependency) {
 	Node* dependency_graphnode = findTarget(graph, dependency);
-	printf("%s found at Node %p\n", dependency, dependency_graphnode);
-	GraphNode* targetGraphNode = target->element;
-	printf("targetGraphNode = %p\n", targetGraphNode);
-
-
 	// If dependency already exists, add it as a child of target
 	if (dependency_graphnode == NULL) {
 		dependency_graphnode = addTarget(graph, dependency);
 	}
 
-	printf("dependency to add: %p\n", dependency_graphnode);
+
+	GraphNode* targetGraphNode = target->element;
+
 
 	if(targetGraphNode->children == NULL) {
-		printf("%s's children was null\n", targetGraphNode->target);
 		targetGraphNode->children = malloc(sizeof(Node));
-		targetGraphNode->children->element = dependency_graphnode;
+		targetGraphNode->children->element = dependency_graphnode->element;
 		targetGraphNode->children->next = NULL;
 	} else {
-		Node* child = targetGraphNode->children;
+		Node* lastDependency = targetGraphNode->children;
 		//Loop through to last dependency
-		while (child->next != NULL) {
-			child = child->next;
+		while (lastDependency->next != NULL) {
+			lastDependency = lastDependency->next;
 		}
 		//Set new Node as last dependency
-		child->next = malloc(sizeof(Node));
-		child->next->next = NULL;
-		child->next->element = dependency_graphnode;
+		lastDependency->next = malloc(sizeof(Node));
+		lastDependency->next->next = NULL;
+		lastDependency->next->element = dependency_graphnode->element;
 	}
 }
 
@@ -134,15 +129,11 @@ int internalCheckForCycles(Node* root) {
 	GraphNode* curr  = root -> element;
 	curr->visited++;
 
-
-	printf("\t %s \n", curr->target);
-
 	if (curr->visited > 1) {
 		return 1;
 	}
 
 	Node* child = curr->children;
-	printf("\t children: %p\n", child);
 	while (child != NULL) {
 		if (internalCheckForCycles(child) == 1) {
 			return 1;
@@ -157,7 +148,6 @@ int checkForCycles(Node* root) {
 	Node* curr = root;
 	while (curr != NULL) {
 		clear(root);
-		printf("checkForCycles: %s\n", ((GraphNode*)curr->element)->target);
 		if (internalCheckForCycles(curr) == 1) {
 			return 1;
 		}

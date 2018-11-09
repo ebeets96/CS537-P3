@@ -1,7 +1,7 @@
 
-a.out: main.c
+a.out: main.c clean
 	gcc main.c
 
 clean:
-	edfadfasdf daf aasdf adsf as
+	adfaldf adfasdf a
 	ls -all

@@ -52,7 +52,6 @@ char* parseFile(FILE* fp, Node* g) {
 			} while (curr != NULL);
 
 			// Add to the current GraphNode
-			printf("Call to add command, gn = %p\n", gn);
 			addCommandToNode(gn->element, command);
 
 		} else {
@@ -61,7 +60,6 @@ char* parseFile(FILE* fp, Node* g) {
 			char* dependencies = strtok(NULL, ":");
 			char* errorCheck = strtok(NULL, ":"); // Check if there's a second colon
 
-			printf("New Target: %s\n", target);
 			if(target == NULL || errorCheck != NULL) {
 				printf("This line was not a valid target\n");
 				continue; // Skip processing this line
@@ -74,7 +72,6 @@ char* parseFile(FILE* fp, Node* g) {
 
 			// Add Target to the Graph
 			gn = addTarget(g, target);
-			printf("Target's node is: %p\n", gn -> element);
 
 			//convert dependencies to an array of strings
 			char* dependency = strtok(dependencies, " ");
@@ -91,7 +88,6 @@ char* parseFile(FILE* fp, Node* g) {
 			printf("Could not allocate space for string buffer.\n");
 			exit(EXIT_FAILURE);
 		}
-		printf("At end of loop, gn -> element = %p\n", gn->element);
 	}
 	free(line);
 	return firstTarget;
