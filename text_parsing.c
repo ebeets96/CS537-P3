@@ -18,7 +18,7 @@ char* parseFile(FILE* fp, Node* g) {
 		exit(EXIT_FAILURE);
 	}
 
-	char* line_copy = line;
+	// char* line_copy = line;
 
 	// Read file until the end
 	char* firstTarget = NULL;
@@ -89,8 +89,8 @@ char* parseFile(FILE* fp, Node* g) {
 			}
 		}
 
-		free(line_copy);
-		
+		// free(line_copy);
+
 		// Allocate string buffer for each line
 		line = malloc(sizeof(char) * string_buffer);
 		if(line == NULL) {
@@ -98,7 +98,7 @@ char* parseFile(FILE* fp, Node* g) {
 			exit(EXIT_FAILURE);
 		}
 
-		line_copy = line;
+		// line_copy = line;
 	}
 	free(line);
 	return firstTarget;
