@@ -14,6 +14,7 @@ Node* addTarget(Node* graph, char* target) {
 	GraphNode* newNode = malloc(sizeof(GraphNode));
 	if(newNode == NULL) {
 		fprintf(stderr, "Couldn't allocate space for GraphNode.\n");
+		exit(EXIT_FAILURE);
 	}
 	newNode -> target = target;
 	newNode -> commands = NULL;

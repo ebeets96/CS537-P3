@@ -1,3 +1,8 @@
+/*
+ * Jack David
+ * Eric Beets
+ */
+
 #ifndef BUILD_SPEC_GRAPH_H
 #define BUILD_SPEC_GRAPH_H
 
