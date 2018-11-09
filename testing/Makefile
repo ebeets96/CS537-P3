@@ -1,2 +1,7 @@
+
+a.out: main.c
+	gcc main.c
+
 clean:
-	echo "hello";
+	edfadfasdf daf aasdf adsf as
+	ls -all
