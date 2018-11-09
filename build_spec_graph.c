@@ -73,6 +73,7 @@ void addDepedency(Node* graph, Node* target, char* dependency) {
 	GraphNode* targetGraphNode = target->element;
 	printf("targetGraphNode = %p\n", targetGraphNode);
 
+
 	// If dependency already exists, add it as a child of target
 	if (dependency_graphnode == NULL) {
 		dependency_graphnode = addTarget(graph, dependency);
