@@ -67,6 +67,7 @@ void addDepedency(Node* graph, Node* target, char* dependency) {
 	Node* dependency_graphnode = findTarget(graph, dependency);
 	GraphNode* targetGraphNode = target->element;
 
+
 	// If dependency already exists, add it as a child of target
 	if (dependency_graphnode == NULL) {
 		dependency_graphnode = addTarget(graph, dependency);
