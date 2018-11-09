@@ -1,7 +1,4 @@
-
-a.out: main.c clean
+a.out: main.c
 	gcc main.c
-
 clean:
-	adfaldf adfasdf a
-	ls -all
+	echo clean

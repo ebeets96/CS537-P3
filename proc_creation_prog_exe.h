@@ -3,6 +3,7 @@
 #include "build_spec_graph.h"
 
 void makeTarget(char* target, Node* graph);
-int makeNode(GraphNode* node);
+void makeNode(GraphNode* node);
+int timeGreaterThan(struct timespec *a, struct timespec *b);
 
 #endif

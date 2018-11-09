@@ -18,29 +18,77 @@ void makeTarget(char* target, Node* graph) {
 
 // 1 if it made anything
 // 0 if it did not
-int makeNode(GraphNode* node) {
+void makeNode(GraphNode* node) {
 	Node* child = node->children;
-	int dependenciesUpdate = 0;
+	int hasNonFileDependency = 0;
+	struct timespec most_recently_modified_depency;
+	most_recently_modified_depency.tv_sec = 0;
+	most_recently_modified_depency.tv_nsec = 0;
+
+	struct stat *statbuf = malloc(sizeof(struct stat));
+	int statSuccess; //Holds return value for latest stat call
+
 	while(child != NULL) {
 			GraphNode* childNode = (GraphNode*) child->element;
-			dependenciesUpdate += makeNode(childNode);
+			makeNode(childNode);
+
+			char* dependency_name = childNode->target;
+			statSuccess = stat(dependency_name, statbuf);
+			if(statSuccess == 0) {
+				//Dependency is a file
+				if(timeGreaterThan(&statbuf->st_mtim, &most_recently_modified_depency)) {
+					// printf("The dependency, %s, was greater.\n", dependency_name);
+					most_recently_modified_depency.tv_sec = statbuf->st_mtim.tv_sec;
+					most_recently_modified_depency.tv_nsec = statbuf->st_mtim.tv_nsec;
+				} else {
+					// printf("The dependency, %s, was not greater.\n", dependency_name);
+				}
+			} else {
+				hasNonFileDependency = 1;
+			}
+
 			child = child->next;
 	}
 
-	// If associated file has been updated, run commands
-	// This is a leaf node
-
-	struct stat *statbuf = malloc(sizeof(stat));
-	int statSuccess = stat(node->target, statbuf);
+	statSuccess = stat(node->target, statbuf);
 
 	if(statSuccess == 0) {
 		//Target is a file
-		printf("It's a file\n");
+		if(hasNonFileDependency || timeGreaterThan(&most_recently_modified_depency, &statbuf->st_mtim)) {
+			// printf("A dependency was modified since the target (%s) was made.\n", node->target);
+			runCommands(node->commands);
+		} else {
+			// printf("A dependency was not modified since the target (%s) was made.\n", node->target);
+		}
 	} else {
 		//Target is not a file
-		printf("It's not a file\n");
+		// printf("%s is not a file\n", node->target);
 		runCommands(node->commands);
 	}
+}
 
+//Returns 1 if a > b
+//Returns 0 if a <= b
+int timeGreaterThan(struct timespec *a, struct timespec *b) {
+	time_t a_sec = a->tv_sec;
+	long a_nsec = a->tv_nsec;
+
+	time_t b_sec = b->tv_sec;
+	long b_nsec = b->tv_nsec;
+
+	if(a_sec > b_sec) {
+		return 1;
+	}
+
+	if(a_sec < b_sec) {
+		return 0;
+	}
+
+	//Second values are equal
+	if(a_nsec <= b_nsec) {
+		return 0;
+	}
+
+	// a_nsec > b_nsec
 	return 1;
 }
