@@ -29,22 +29,22 @@ void makeNode(GraphNode* node) {
 			GraphNode* childNode = (GraphNode*) child->element;
 			makeNode(childNode);
 
-			// // Check if a file with the name of the dependency targe exists
-			// // and if it is the most recently modified dependency
-			// char* dependency_name = childNode->target;
-			// // statSuccess = stat(dependency_name, statbuf);
-			// if(statSuccess == 0) {
-			// 	//Dependency is a file
-			// 	// if(timeGreaterThan(&statbuf->st_mtim, most_recently_modified_depency)) {
-			// 	// 	printf("The dependency, %s, was greater.\n", dependency_name);
-			// 	// 	most_recently_modified_depency->tv_sec = statbuf->st_mtim.tv_sec;
-			// 	// 	most_recently_modified_depency->tv_nsec = statbuf->st_mtim.tv_nsec;
-			// 	// } else {
-			// 	// 	printf("The dependency, %s, was not greater.\n", dependency_name);
-			// 	// }
-			// } else {
-			// 	printf("Could not open %s\n", dependency_name);
-			// }
+			// Check if a file with the name of the dependency targe exists
+			// and if it is the most recently modified dependency
+			char* dependency_name = childNode->target;
+			// statSuccess = stat(dependency_name, statbuf);
+			if(statSuccess == 0) {
+				//Dependency is a file
+				// if(timeGreaterThan(&statbuf->st_mtim, most_recently_modified_depency)) {
+				// 	printf("The dependency, %s, was greater.\n", dependency_name);
+				// 	most_recently_modified_depency->tv_sec = statbuf->st_mtim.tv_sec;
+				// 	most_recently_modified_depency->tv_nsec = statbuf->st_mtim.tv_nsec;
+				// } else {
+				// 	printf("The dependency, %s, was not greater.\n", dependency_name);
+				// }
+			} else {
+				printf("Could not open %s\n", dependency_name);
+			}
 
 			child = child->next;
 	}

@@ -52,7 +52,7 @@ char* parseFile(FILE* fp, Node* g) {
 					printf("Space could not be reallocated for commands.\n");
 			        exit(EXIT_FAILURE);
 				}
-
+				printf("%s\n", curr);
 				command[size-1] = curr;
 
 				curr = strtok(NULL, " ");
