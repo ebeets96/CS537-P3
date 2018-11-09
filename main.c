@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
 
 	char* firstTarget = parseFile(file, graph);
 
+	printNodes(graph);
+
 	// Check the dependency graph for cycles
 	if (checkForCycles(graph) == 1) {
 		fprintf(stderr, "Cycle in dependency graph\n");
