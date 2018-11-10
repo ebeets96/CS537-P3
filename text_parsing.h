@@ -1,8 +1,3 @@
-/*
- * Jack David
- * Eric Beets
- */
-
 #ifndef TEXT_PARSING_H
 #define TEXT_PARSING_H
 
