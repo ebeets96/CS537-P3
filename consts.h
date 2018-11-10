@@ -1,3 +1,8 @@
+/*
+ * Jack David
+ * Eric Beets
+ */
+
 #ifndef CONSTS_H
 #define CONSTS_H
 
