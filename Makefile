@@ -1,7 +1,7 @@
-537make: main.o build_spec_graph.o text_parsing.o build_spec_repr.o proc_creation_prog_exe.o
+537make:      main.o     build_spec_graph.o    text_parsing.o build_spec_repr.o proc_creation_prog_exe.o
 	gcc -g -o 537make main.o build_spec_graph.o text_parsing.o build_spec_repr.o proc_creation_prog_exe.o -lpthread
 
-main.o: main.c
+main.o:main.c
 	gcc -g -Wall -Wextra -c main.c
 
 build_spec_graph.o: build_spec_graph.c build_spec_graph.h
