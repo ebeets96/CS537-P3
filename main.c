@@ -1,8 +1,3 @@
-/*
- * Jack David
- * Eric Beets
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "build_spec_graph.h"

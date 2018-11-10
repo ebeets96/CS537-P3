@@ -1,8 +1,3 @@
-/*
- * Jack David
- * Eric Beets
- */
-
 #ifndef BUILD_GRAPH_REPR_H
 #define BUILD_GRAPH_REPR_H
 

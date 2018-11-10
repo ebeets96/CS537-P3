@@ -1,8 +1,3 @@
-/*
- * Jack David
- * Eric Beets
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -35,7 +30,7 @@ int makeNode(GraphNode* node) {
 	// If associated file has been updated, run commands
 	// This is a leaf node
 
-	struct stat *statbuf = malloc(sizeof(struct stat));
+	struct stat *statbuf = malloc(sizeof(stat));
 	int statSuccess = stat(node->target, statbuf);
 
 	if(statSuccess == 0) {
@@ -46,8 +41,6 @@ int makeNode(GraphNode* node) {
 		printf("It's not a file\n");
 		runCommands(node->commands);
 	}
-
-	free(statbuf);
 
 	return 1;
 }
