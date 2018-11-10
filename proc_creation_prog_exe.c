@@ -1,3 +1,8 @@
+/*
+ * Jack David
+ * Eric Beets
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>

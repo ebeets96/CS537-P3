@@ -1,3 +1,8 @@
+/*
+ * Jack David
+ * Eric Beets
+ */
+ 
 #include "text_parsing.h"
 #include "build_spec_graph.h"
 #include "consts.h"

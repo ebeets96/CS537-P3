@@ -1,3 +1,8 @@
+/*
+ * Jack David
+ * Eric Beets
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "build_spec_graph.h"
@@ -52,7 +57,7 @@ int main(int argc, char **argv) {
 
 	if(!makeTarget(target, graph)) {
 		printf("make: '%s' is up to date.\n", target);
-		
+
 	}
 
 	return 0;
