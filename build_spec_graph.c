@@ -2,7 +2,7 @@
  * Jack David
  * Eric Beets
  */
- 
+
 #include "build_spec_graph.h"
 #include <stdlib.h>
 #include <string.h>
@@ -146,6 +146,8 @@ int internalCheckForCycles(Node* root) {
 		}
 		child = child -> next;
 	}
+
+	curr->visited--;
 
 	return 0;
 }
