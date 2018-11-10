@@ -54,7 +54,7 @@ char* parseFile(FILE* fp, Node* g) {
 			// Add to the current GraphNode
 			addCommandToNode(gn->element, command);
 
-		} else {
+		} else if (strstr(line, ":") != NULL){
 			// Split the string by : character
 			char* target = strtok(line, ":");
 			char* dependencies = strtok(NULL, ":");
@@ -80,6 +80,9 @@ char* parseFile(FILE* fp, Node* g) {
 				addDepedency(g, gn, dependency);
 				dependency = strtok(NULL, " ");
 			}
+		} else {
+			printf("This line was not a valid target\n");
+			continue; // Skip processing this line
 		}
 
 		// Allocate string buffer for each line
@@ -89,6 +92,7 @@ char* parseFile(FILE* fp, Node* g) {
 			exit(EXIT_FAILURE);
 		}
 	}
+
 	free(line);
 	return firstTarget;
 }

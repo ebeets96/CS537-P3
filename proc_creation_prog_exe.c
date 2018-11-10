@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "proc_creation_prog_exe.h"
 
-void makeTarget(char* target, Node* graph) {
+int makeTarget(char* target, Node* graph) {
 	GraphNode* tNode = findTarget(graph, target)->element;
 
 	if(tNode == NULL) {
@@ -13,12 +13,12 @@ void makeTarget(char* target, Node* graph) {
 		exit(EXIT_FAILURE);
 	}
 
-	makeNode(tNode);
+	return makeNode(tNode);
 }
 
 // 1 if it made anything
 // 0 if it did not
-void makeNode(GraphNode* node) {
+int makeNode(GraphNode* node) {
 	Node* child = node->children;
 	int hasNonFileDependency = 0;
 	struct timespec most_recently_modified_depency;
@@ -55,15 +55,15 @@ void makeNode(GraphNode* node) {
 	if(statSuccess == 0) {
 		//Target is a file
 		if(hasNonFileDependency || timeGreaterThan(&most_recently_modified_depency, &statbuf->st_mtim)) {
-			// printf("A dependency was modified since the target (%s) was made.\n", node->target);
 			runCommands(node->commands);
+			return 1;
 		} else {
-			// printf("A dependency was not modified since the target (%s) was made.\n", node->target);
+			//Didn't have to make anything
+			return 0;
 		}
 	} else {
-		//Target is not a file
-		// printf("%s is not a file\n", node->target);
 		runCommands(node->commands);
+		return 1;
 	}
 }
 

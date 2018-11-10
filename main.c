@@ -38,14 +38,21 @@ int main(int argc, char **argv) {
 
 	// Check the dependency graph for cycles
 	if (checkForCycles(graph) == 1) {
+		fprintf(stderr, "The makefile contained a cycle.\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// If a target was specified, make that target, else make the first target in the makefile
+	char* target;
 	if (argc == 2) {
-		makeTarget(argv[1], graph);
+		target = argv[1];
 	} else {
-		makeTarget(firstTarget, graph);
+		target = firstTarget;
+	}
+
+	if(!makeTarget(target, graph)) {
+		printf("make: '%s' is up to date.\n", target);
+		
 	}
 
 	return 0;

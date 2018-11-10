@@ -1,4 +1,5 @@
-a.out: main.c
+a.out: main.c clean
 	gcc main.c
+
 clean:
-	echo clean
+	ls -all

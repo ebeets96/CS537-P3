@@ -27,7 +27,7 @@ Node* addTarget(Node* graph, char* target) {
 	}
 
 	graphnode->element = newNode;
-	
+
 	// Return the target
 	return graphnode;
 }
