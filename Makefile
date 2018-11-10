@@ -16,10 +16,10 @@ build_spec_repr.o: build_spec_repr.c build_spec_repr.h
 proc_creation_prog_exe.o: proc_creation_prog_exe.c proc_creation_prog_exe.h
 	gcc -g -Wall -Wextra -c proc_creation_prog_exe.c
 
-clean: recompile
+clean:
 	rm -f 537make *.o
 
-recompile: clean
+recompile: clean 537make
 
 testing: recompile
 	cp 537make testing/
