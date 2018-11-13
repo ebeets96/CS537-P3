@@ -2,7 +2,7 @@
  * Jack David
  * Eric Beets
  */
- 
+
 #include "text_parsing.h"
 #include "build_spec_graph.h"
 #include "consts.h"
@@ -49,7 +49,7 @@ char* parseFile(FILE* fp, Node* g) {
 
 			// Create an array of the command
 			int size = 0;
-			do {
+			while (1) {
 				command = realloc (command, sizeof (char*) * ++size);
 
 				if(command == NULL) {
@@ -59,8 +59,13 @@ char* parseFile(FILE* fp, Node* g) {
 
 				command[size-1] = curr;
 
-				curr = strtok(NULL, " ");
-			} while (curr != NULL);
+				// Ensure that a NULL is added to end of list
+				if(curr == NULL) {
+					break;
+				} else {
+					curr = strtok(NULL, " ");
+				}
+			}
 
 			// Add to the current GraphNode
 			addCommandToNode(gn->element, command);
@@ -105,6 +110,7 @@ char* parseFile(FILE* fp, Node* g) {
 		line_number++;
 	}
 
+	free(line_copy);
 	free(line);
 	return firstTarget;
 }

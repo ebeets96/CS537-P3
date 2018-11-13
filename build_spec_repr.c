@@ -2,7 +2,7 @@
  * Jack David
  * Eric Beets
  */
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,7 +15,7 @@ void runCommands(Command* c) {
 	while(currCmd != NULL) {
 		// printf("run %s\n", *(currCmd->cmd));
 		char** printableCmd = currCmd->cmd;
-		while ( *printableCmd ) printf( "%s ", *printableCmd++ );
+		while ( printableCmd && *printableCmd ) printf( "%s ", *printableCmd++ );
 		printf("\n");
 
 		pid_t childPID = fork();
