@@ -1,1 +1,7 @@
-Write your README here
+First of all, when I changed the Makefile to include the -O0 option, a segfault
+started showing up.  This came up because a NULL pointer was not being added to
+the end of a command.  To fix this lines 52-68 were changed in text_parsing.c.
+
+The stat buffer had to be freed on line 64, 68, and 73 of proc_creation_prog_exe.c.
+
+The line_copy variable also had to be freed on line 113 text_parsing.c.
