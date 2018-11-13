@@ -61,13 +61,16 @@ int makeNode(GraphNode* node) {
 		//Target is a file
 		if(hasNonFileDependency || timeGreaterThan(&most_recently_modified_depency, &statbuf->st_mtim)) {
 			runCommands(node->commands);
+			free(statbuf);
 			return 1;
 		} else {
 			//Didn't have to make anything
+			free(statbuf);
 			return 0;
 		}
 	} else {
 		runCommands(node->commands);
+		free(statbuf);
 		return 1;
 	}
 }
