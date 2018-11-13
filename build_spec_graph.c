@@ -1,6 +1,6 @@
 /*
- * Jack David
- * Eric Beets
+ * Jack David jdavid3
+ * Eric Beets ebeets
  */
 
 #include "build_spec_graph.h"
