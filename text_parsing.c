@@ -48,15 +48,8 @@ char* parseFile(FILE* fp, Node* g) {
 			}
 
 			// Create an array of the command
-			int size = 0;
+			int size = 1;
 			while (1) {
-				command = realloc (command, sizeof (char*) * ++size);
-
-				if(command == NULL) {
-					printf("Space could not be reallocated for commands.\n");
-			        exit(EXIT_FAILURE);
-				}
-
 				command[size-1] = curr;
 
 				// Ensure that a NULL is added to end of list
@@ -64,6 +57,13 @@ char* parseFile(FILE* fp, Node* g) {
 					break;
 				} else {
 					curr = strtok(NULL, " ");
+
+					// Allocate space for next command
+					command = realloc (command, sizeof (char*) * ++size);
+					if(command == NULL) {
+						printf("Space could not be reallocated for commands.\n");
+						exit(EXIT_FAILURE);
+					}
 				}
 			}
 
