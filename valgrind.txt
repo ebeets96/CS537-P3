@@ -1,0 +1,63 @@
+[beets@royal-03] (20)$ valgrind --leak-check=yes --track-origins=yes --read-var-info=yes 537make
+==14699== Memcheck, a memory error detector
+==14699== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==14699== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==14699== Command: 537make
+==14699==
+gcc -O0 -g -Wall -Wextra -c main.c
+gcc -O0 -g -Wall -Wextra -c build_spec_graph.c
+gcc -O0 -g -Wall -Wextra -c text_parsing.c
+gcc -O0 -g -Wall -Wextra -c build_spec_repr.c
+gcc -O0 -g -Wall -Wextra -c proc_creation_prog_exe.c
+gcc -g -o 537make main.o build_spec_graph.o text_parsing.o build_spec_repr.o proc_creation_prog_exe.o -lpthread
+==14699==
+==14699== HEAP SUMMARY:
+==14699==     in use at exit: 25,696 bytes in 118 blocks
+==14699==   total heap usage: 187 allocs, 69 frees, 34,232 bytes allocated
+==14699==
+==14699== 144 bytes in 1 blocks are definitely lost in loss record 4 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x1098B5: makeNode (proc_creation_prog_exe.c:33)
+==14699==    by 0x10986B: makeTarget (proc_creation_prog_exe.c:21)
+==14699==    by 0x108E0A: main (main.c:58)
+==14699==
+==14699== 720 bytes in 5 blocks are definitely lost in loss record 11 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x1098B5: makeNode (proc_creation_prog_exe.c:33)
+==14699==    by 0x1098D5: makeNode (proc_creation_prog_exe.c:38)
+==14699==    by 0x10986B: makeTarget (proc_creation_prog_exe.c:21)
+==14699==    by 0x108E0A: main (main.c:58)
+==14699==
+==14699== 1,024 bytes in 1 blocks are possibly lost in loss record 12 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x10964A: parseFile (text_parsing.c:105)
+==14699==    by 0x108D9C: main (main.c:40)
+==14699==
+==14699== 1,024 bytes in 1 blocks are definitely lost in loss record 14 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x109361: parseFile (text_parsing.c:16)
+==14699==    by 0x108D9C: main (main.c:40)
+==14699==
+==14699== 1,872 bytes in 13 blocks are definitely lost in loss record 15 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x1098B5: makeNode (proc_creation_prog_exe.c:33)
+==14699==    by 0x1098D5: makeNode (proc_creation_prog_exe.c:38)
+==14699==    by 0x1098D5: makeNode (proc_creation_prog_exe.c:38)
+==14699==    by 0x10986B: makeTarget (proc_creation_prog_exe.c:21)
+==14699==    by 0x108E0A: main (main.c:58)
+==14699==
+==14699== 20,360 (16 direct, 20,344 indirect) bytes in 1 blocks are definitely lost in loss record 17 of 17
+==14699==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==14699==    by 0x108D6E: main (main.c:36)
+==14699==
+==14699== LEAK SUMMARY:
+==14699==    definitely lost: 3,776 bytes in 21 blocks
+==14699==    indirectly lost: 20,344 bytes in 95 blocks
+==14699==      possibly lost: 1,024 bytes in 1 blocks
+==14699==    still reachable: 552 bytes in 1 blocks
+==14699==         suppressed: 0 bytes in 0 blocks
+==14699== Reachable blocks (those to which a pointer was found) are not shown.
+==14699== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==14699==
+==14699== For counts of detected and suppressed errors, rerun with: -v
+==14699== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 0 from 0)
