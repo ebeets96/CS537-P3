@@ -1,6 +1,6 @@
 /*
- * Jack David
- * Eric Beets
+ * Jack David jdavid3
+ * Eric Beets ebeets
  */
  
 #ifndef BUILD_GRAPH_REPR_H
